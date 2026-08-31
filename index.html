@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Licda. Juliana Barquero Vindas — Enfermería a domicilio</title>
+<meta name="description" content="Enfermería profesional a domicilio en la GAM, Costa Rica. Licda. Juliana Barquero Vindas, Lic. 22242.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --crema:#F6F1E7;
+    --salvia:#6E8F7F;
+    --salvia-oscuro:#587866;   /* variante para botones: mejor contraste con texto blanco */
+    --terracota:#D08C6B;
+    --tinta:#2C3833;
+    --linea:#A8BFB2;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    background:var(--crema);
+    color:var(--tinta);
+    font-family:'Jost', sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+  }
+  .tarjeta{
+    width:100%;
+    max-width:430px;
+    padding:40px 24px 120px; /* espacio inferior para la barra fija de acciones */
+  }
+
+  /* ---------- Encabezado ---------- */
+  header{ text-align:center; }
+  .logo{ width:min(280px,84%); margin:0 auto 6px; display:block; }
+  .logo path{
+    fill:none;
+    stroke:var(--salvia);
+    stroke-width:3;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+  .logo .trazo{
+    stroke-dasharray:620;
+    stroke-dashoffset:620;
+    animation:dibujar 2.2s ease-out .3s forwards;
+  }
+  @keyframes dibujar{ to{ stroke-dashoffset:0; } }
+
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:2rem;
+    line-height:1.15;
+  }
+  .subtitulo{
+    font-size:1.05rem;
+    font-weight:400;
+    color:var(--salvia);
+    margin-top:4px;
+  }
+  .credencial{
+    margin-top:14px;
+    font-size:.88rem;
+    color:var(--tinta);
+    opacity:.85;
+  }
+  .chip{
+    display:inline-block;
+    margin-top:12px;
+    padding:6px 16px;
+    border:1px solid var(--linea);
+    border-radius:999px;
+    font-size:.85rem;
+    font-weight:400;
+    background:#fff;
+  }
+
+  /* ---------- Botones principales ---------- */
+  .acciones{
+    position:fixed;
+    left:0; right:0; bottom:0;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    padding:14px 16px calc(14px + env(safe-area-inset-bottom));
+    background:linear-gradient(to top, var(--crema) 78%, rgba(246,241,231,0));
+    z-index:10;
+  }
+  .boton{
+    flex:1;
+    max-width:210px;
+    min-height:52px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    border:none;
+    border-radius:999px;
+    font-family:'Jost', sans-serif;
+    font-size:1rem;
+    font-weight:500;
+    cursor:pointer;
+    text-decoration:none;
+    transition:filter .2s ease, transform .15s ease;
+  }
+  .boton:active{ transform:scale(.97); }
+  .boton:focus-visible{ outline:3px solid var(--terracota); outline-offset:2px; }
+  .boton-whatsapp{
+    background:var(--salvia-oscuro);
+    color:#fff;
+    animation:latido 2.6s ease-in-out 3s infinite;
+  }
+  .boton-whatsapp:hover{ filter:brightness(1.07); }
+  @keyframes latido{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.03); }
+  }
+  .boton-contacto{
+    background:#fff;
+    color:var(--tinta);
+    border:1.5px solid var(--linea);
+  }
+  .boton-contacto:hover{ border-color:var(--salvia); }
+  .icono{ width:20px; height:20px; flex:none; }
+
+  /* ---------- Servicios (acordeones) ---------- */
+  .servicios{ margin-top:44px; }
+  h2{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    font-size:1.45rem;
+    text-align:center;
+    margin-bottom:18px;
+  }
+  .acordeon{
+    background:#fff;
+    border:1px solid var(--linea);
+    border-radius:16px;
+    margin-bottom:12px;
+    overflow:hidden;
+  }
+  .acordeon-boton{
+    width:100%;
+    min-height:56px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:14px 18px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.25rem;
+    font-weight:600;
+    color:var(--tinta);
+    text-align:left;
+    transition:background .2s ease;
+  }
+  .acordeon-boton:hover{ background:rgba(168,191,178,.14); }
+  .acordeon-boton:focus-visible{ outline:3px solid var(--terracota); outline-offset:-3px; }
+  .flecha{
+    flex:none;
+    width:22px; height:22px;
+    color:var(--terracota);
+    transition:transform .3s ease;
+  }
+  .acordeon-boton[aria-expanded="true"] .flecha{ transform:rotate(180deg); }
+  .panel{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .35s ease;
+  }
+  .panel ul{
+    list-style:none;
+    padding:2px 20px 16px;
+  }
+  .panel li{
+    padding:9px 0;
+    font-size:.97rem;
+    border-top:1px solid rgba(168,191,178,.35);
+  }
+  .panel li:first-child{ border-top:none; }
+
+  /* ---------- Por qué a domicilio ---------- */
+  .porque{
+    margin-top:40px;
+    text-align:center;
+    padding:0 6px;
+  }
+  .porque p{
+    margin-top:10px;
+    font-size:.97rem;
+  }
+  .porque .acento{
+    width:44px; height:2px;
+    background:var(--terracota);
+    margin:14px auto 0;
+    border-radius:2px;
+  }
+
+  /* ---------- Pie ---------- */
+  footer{
+    margin-top:44px;
+    text-align:center;
+    font-size:.85rem;
+    opacity:.85;
+  }
+  .redes{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin-bottom:12px;
+  }
+  .redes a{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    color:var(--tinta);
+    text-decoration:none;
+    border:1px solid var(--linea);
+    border-radius:999px;
+    padding:8px 16px;
+    min-height:40px;
+    font-weight:400;
+    transition:border-color .2s ease;
+  }
+  .redes a:hover{ border-color:var(--salvia); }
+  .redes a:focus-visible{ outline:3px solid var(--terracota); outline-offset:2px; }
+
+  /* ---------- Accesibilidad: movimiento reducido ---------- */
+  @media (prefers-reduced-motion: reduce){
+    .logo .trazo{ animation:none; stroke-dashoffset:0; }
+    .boton-whatsapp{ animation:none; }
+    .panel, .flecha, .boton{ transition:none; }
+  }
+</style>
+</head>
+<body>
+<main class="tarjeta">
+
+  <header>
+    <!-- Logo: línea de pulso que se eleva y forma el techo de una casa -->
+    <svg class="logo" viewBox="0 0 320 130" role="img" aria-label="Logo: línea de pulso cardíaco que forma el techo de una casa">
+      <path class="trazo" d="M 10 96
+                             H 64
+                             L 73 87 L 82 96
+                             H 98
+                             L 110 38
+                             L 122 114
+                             L 131 96
+                             H 158
+                             L 210 48
+                             L 262 96
+                             H 310" />
+    </svg>
+
+    <h1>Licda. Juliana Barquero Vindas</h1>
+    <p class="subtitulo">Enfermería profesional a domicilio</p>
+    <p class="credencial">Licencia 22242 · Colegio de Enfermeras de Costa Rica</p>
+    <span class="chip">Cobertura: GAM, Costa Rica</span>
+  </header>
+
+  <!-- Servicios -->
+  <section class="servicios" aria-label="Servicios de enfermería">
+    <h2>Servicios</h2>
+
+    <div class="acordeon">
+      <button class="acordeon-boton" aria-expanded="false" aria-controls="panel-1" id="btn-1">
+        Procedimientos clínicos
+        <svg class="flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="panel" id="panel-1" role="region" aria-labelledby="btn-1">
+        <ul>
+          <li>Aplicación de medicamentos y tratamientos</li>
+          <li>Curaciones y manejo de heridas</li>
+          <li>Retiro de puntos y suturas</li>
+          <li>Colocación y cambio de sondas</li>
+          <li>Administración de tratamientos intravenosos</li>
+          <li>Nebulizaciones y oxigenoterapia</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="acordeon">
+      <button class="acordeon-boton" aria-expanded="false" aria-controls="panel-2" id="btn-2">
+        Monitoreo y control
+        <svg class="flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="panel" id="panel-2" role="region" aria-labelledby="btn-2">
+        <ul>
+          <li>Toma y control de signos vitales</li>
+          <li>Control de glucemia</li>
+          <li>Control de presión arterial</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="acordeon">
+      <button class="acordeon-boton" aria-expanded="false" aria-controls="panel-3" id="btn-3">
+        Cuidado y acompañamiento
+        <svg class="flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="panel" id="panel-3" role="region" aria-labelledby="btn-3">
+        <ul>
+          <li>Cuidado de adultos mayores y personas con discapacidad</li>
+          <li>Baños en cama</li>
+          <li>Cuidados postoperatorios</li>
+          <li>Atención de pacientes a domicilio</li>
+          <li>Educación en salud y prevención de enfermedades</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Por qué a domicilio -->
+  <section class="porque">
+    <h2>¿Por qué atención a domicilio?</h2>
+    <p>Recuperarse en casa, rodeado de lo familiar, hace la diferencia. Cada visita se adapta a la persona: seguimiento cercano, trato humano y la tranquilidad de recibir cuidado profesional sin salir de su hogar.</p>
+    <div class="acento" aria-hidden="true"></div>
+  </section>
+
+  <footer>
+    <div class="redes">
+      <a href="#" aria-label="Instagram (enlace pendiente)">
+        <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+        Instagram
+      </a>
+      <a href="#" aria-label="Facebook (enlace pendiente)">
+        <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15.5 3.5h-2.6c-2 0-3.4 1.5-3.4 3.6v2.4H7v3h2.5v8h3.1v-8h2.7l.5-3h-3.2V7.3c0-.7.4-1 1-1h2v-2.8z"/></svg>
+        Facebook
+      </a>
+    </div>
+    <p>Atención con cita previa · GAM, Costa Rica</p>
+  </footer>
+
+  <!-- Barra fija de acciones -->
+  <nav class="acciones" aria-label="Acciones de contacto">
+    <a class="boton boton-whatsapp"
+       href="https://wa.me/50672688481?text=Hola%20Licda.%20Juliana%2C%20vi%20su%20tarjeta%20digital%20y%20me%20gustar%C3%ADa%20consultar%20por%20un%20servicio%20de%20enfermer%C3%ADa%20a%20domicilio."
+       target="_blank" rel="noopener">
+      <svg class="icono" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.2.6-1.2 1.2-1.7 1.2-.4.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.8-4.4-4-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.2.3-.3.5l-.5.5c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.3.1 1.6.7 1.8.9.3.1.4.2.5.3 0 .2 0 .6-.2 1.1z"/></svg>
+      Escribir por WhatsApp
+    </a>
+    <button class="boton boton-contacto" id="guardarContacto" type="button">
+      <svg class="icono" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.2 3.6-5 7-5s6.2 1.8 7 5"/></svg>
+      Guardar contacto
+    </button>
+  </nav>
+
+</main>
+
+<script>
+  // Acordeones: solo uno abierto a la vez, con transicion suave
+  document.querySelectorAll('.acordeon-boton').forEach(function(boton){
+    boton.addEventListener('click', function(){
+      var abierto = boton.getAttribute('aria-expanded') === 'true';
+      // Cerrar todos
+      document.querySelectorAll('.acordeon-boton').forEach(function(b){
+        b.setAttribute('aria-expanded','false');
+        document.getElementById(b.getAttribute('aria-controls')).style.maxHeight = null;
+      });
+      // Abrir el seleccionado si estaba cerrado
+      if(!abierto){
+        boton.setAttribute('aria-expanded','true');
+        var panel = document.getElementById(boton.getAttribute('aria-controls'));
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // Guardar contacto: genera y descarga un archivo .vcf (vCard 3.0)
+  // Nota de seguridad: no se usa almacenamiento del navegador ni se envian datos a ningun servidor.
+  document.getElementById('guardarContacto').addEventListener('click', function(){
+    var vcf = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'N:Barquero Vindas;Juliana Pamela;;;',
+      'FN:Licda. Juliana Barquero Vindas',
+      'TITLE:Licenciada en Enfermeria',
+      'TEL;TYPE=CELL:+50672688481',
+      'NOTE:Enfermeria a domicilio - GAM - Lic. 22242',
+      'END:VCARD'
+    ].join('\r\n');
+    var blob = new Blob([vcf], { type:'text/vcard;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'Juliana-Barquero-Enfermeria.vcf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+</script>
+</body>
+</html>
